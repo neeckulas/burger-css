@@ -1,0 +1,153 @@
+﻿/*Обнуление*/
+* {padding: 0;margin: 0;border: 0;}
+*,*:before,*:after {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}
+:focus,:active {outline: none;}
+a:focus,a:active {outline: none;}
+nav,footer,header,aside {display: block;}
+html, body {height: 100%;width: 100%;font-size: 100%;line-height: 1;font-size: 14px;-ms-text-size-adjust: 100%;-moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;}
+input,button,textarea {font-family: inherit;}
+input::-ms-clear {display: none;}
+button {cursor: pointer;}
+button::-moz-focus-inner {padding: 0;border: 0;}
+a,a:visited {text-decoration: none;}
+a:hover {text-decoration: none;}
+ul li {list-style: none;}
+img {vertical-align: top;}
+h1,h2,h3,h4,h5,h6 {font-size: inherit;font-weight: inherit;}
+/*--------------------*/
+
+body {
+  background-color: rgb(159, 181, 196);
+  font-family: 'Montserrat', sans-serif;
+}
+
+a {
+  color:inherit
+}
+
+#hidden_btn {
+  /*убираем видимость чекбокса*/
+  opacity: 0;
+  
+}
+
+input, label {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#hidden_btn:focus, #hidden_btn:active {
+  /*если на пк все будет норм, то на тачскрине при нажатии появляется голубая обводка элемента. эти строки убирают эффект*/
+  user-select: none;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.btn_brgr {
+  overflow: hidden;
+  /*для центрирования полосок бургера*/
+  display: flex;
+  align-items: center;
+  /*закрепляем меню в углу*/
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  /*при нажатии на бургер, он превратится в крестик. без з-индекса крестик перекроется вызванным меню*/
+  z-index: 1;
+}
+
+.btn_brgr > span, .btn_brgr > span:before, .btn_brgr > span:after {
+  display: block;
+  /*чтобы разделить полоски бургера с помощью топ*/
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  /*цвет полосок*/
+  background-color: #56189e;
+  /*без этого значения не будет анимации превращения бургера в крестик*/
+  transition-duration: .25s;
+}
+
+.btn_brgr>span::before {
+  content: '';
+  /*это расстояние между полосками*/
+  top: -8px;
+}
+
+.btn_brgr>span::after {
+  content: '';
+  /*это расстояние между полосками*/
+  top: 8px;
+}
+
+.navi {
+  display: block;
+  position: fixed;
+  /*скрываем меню, чтобы его не было видно до нажатия. его и так не видно благодаря лефт-100%, но при увеличении масштаба страницы
+  будет не так красиво*/
+  visibility: hidden;
+  top: 0;
+  /*сдвигаем меню за пределы экрана*/
+  left: -100%;
+  width: 300px;
+  height: 100%;
+  margin: 0;
+  padding: 80px 0;
+  list-style: none;
+  text-align: center;
+  box-shadow: 1px 0px 6px rgba(102, 68, 180, 0.2);
+  /*скорость, с которой меню будет появляться*/
+  transition-duration: .45s;
+  background-color: rgb(222, 237, 253);
+}
+
+.menu_list {
+  display: block;
+  padding: 12px 24px;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  /*задержка при наведении на элемент списка*/
+  transition-duration: .25s;
+  color: #8974b9;
+}
+
+.menu_list:hover {
+  color: #3a3052;
+  background-color: rgb(165, 176, 243);
+}
+
+#hidden_btn:checked~.btn_brgr>span:after {
+  /*поворачиваем одну из полосок бургера*/
+  top: 0;
+  transform: rotate(90deg);
+  /*если есть желание, чтобы крестик отличался цветом от бургера*/
+  background-color: rgb(119, 113, 206);
+}
+
+#hidden_btn:checked~.btn_brgr>span {
+  /*поворачиваем весь спан. то есть, предыдущим действием делаем просто крест - +. этим же - х*/
+  transform: rotate(45deg);
+  /*если есть желание, чтобы крестик отличался цветом от бургера*/
+  background-color: rgb(119, 113, 206);
+}
+
+#hidden_btn:checked~.btn_brgr>span::before {
+  top: 0;
+  transform: rotate(360deg);
+  background-color: rgb(119, 113, 206);
+}
+
+#hidden_btn:checked~.navi {
+  /*вызываем наше меню при нажатии на бургер*/
+  visibility: visible;
+  left: 0;
+}
+
+#hidden_btn:not(:checked)~.navi {
+  /*скорость, с которой меню будет прятаться после нажатия на крестик*/
+  transition-duration: 1.5s;
+}
